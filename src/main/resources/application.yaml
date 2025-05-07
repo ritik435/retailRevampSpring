@@ -1,0 +1,12 @@
+spring:
+  profiles:
+      active: dev
+  application:
+    name: retailRevamp
+  data:
+    mongodb:
+      uri: mongodb+srv://RetailRevampSpring:lHGG9ocA4HijbCd5@retailrevamp.lnrwpip.mongodb.net/?retryWrites=true&w=majority&appName=retailRevamp
+      database: RetailRevampSpringBoot
+      mongodb-auto-index-creation: true
+server:
+  port: 8080
