@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class UserServiceTest {
+public class IUserServiceTest {
 
     @Autowired
     public UserRepositories userRepositories;

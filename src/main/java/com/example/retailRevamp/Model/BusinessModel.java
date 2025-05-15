@@ -1,4 +1,5 @@
 package com.example.retailRevamp.Model;
+import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.data.annotation.Id;

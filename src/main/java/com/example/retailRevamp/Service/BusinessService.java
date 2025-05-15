@@ -4,7 +4,6 @@ import com.example.retailRevamp.Model.BusinessModel;
 import com.example.retailRevamp.Model.UserModel;
 import com.example.retailRevamp.Repository.BusinessRepositories;
 import org.apache.commons.logging.Log;
-import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class BusinessService {
     @Autowired
     public BusinessRepositories businessRepositories;
     @Autowired
-    public UserService userService;
+    public IUserService IUserService;
 
     @Transactional
     public void saveEntry(BusinessModel businessModel , UserModel userModel){
@@ -29,7 +28,7 @@ public class BusinessService {
         log.info("saveEntry saved: "+saved.getName());
         userModel.getBusinessList().add(saved);
 //        saved.setName(null);
-        userService.saveEntry(userModel);
+        IUserService.saveEntry(userModel);
         log.info("saveEntry saved: "+userModel);
     }
     public void updateBusiness(BusinessModel businessModel){
@@ -37,7 +36,7 @@ public class BusinessService {
     }
 
     public List<BusinessModel> getAllEntry(int id){
-        UserModel userModel=userService.findUserById(id);
+        UserModel userModel= IUserService.findUserById(id);
         return userModel.getBusinessList();
 //        return businessRepositories.findAll();
     }
@@ -55,7 +54,7 @@ public class BusinessService {
     }
     public boolean deleteEntry(int id, UserModel user){
         user.getBusinessList().removeIf(x-> x.getId()==id);
-        userService.saveEntry(user);
+        IUserService.saveEntry(user);
         businessRepositories.deleteById(id);
         return true;
     }

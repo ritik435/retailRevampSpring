@@ -1,7 +1,7 @@
 package com.example.retailRevamp.Controller;
 
 import com.example.retailRevamp.Model.UserModel;
-import com.example.retailRevamp.Service.UserService;
+import com.example.retailRevamp.Service.IUserService;
 import com.example.retailRevamp.Service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/v2/retail-revamp")
 public class UserControllerv2 {
     @Autowired
-    public UserService userService;
+    public IUserService userService;
     @Autowired
     WeatherService weatherService;
 
@@ -79,12 +79,15 @@ public class UserControllerv2 {
         if(user!=null){
             user.setName(userModel.getName());
             user.setPassword(userModel.getPassword());
+            user.setEmail(userModel.getEmail());
+            user.setSentiment(userModel.getSentiment());
             userService.saveEntry(user);
         }else{
             return ResponseEntity.status(404).body("Not found");
         }
         return ResponseEntity.ok().body(userService.findEntry(id));
     }
+
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Integer id){
         Optional<UserModel> entry= userService.findEntry(id);
@@ -96,5 +99,10 @@ public class UserControllerv2 {
         return ResponseEntity.ok().body("User deleted");
     }
 
-
+    @GetMapping("/get-users-with-sentiment")
+    public ResponseEntity<?> getUserWithSentiment(){
+        List<UserModel> response=userService.getUsersWithSentiment();
+        System.out.println(response);
+        return new ResponseEntity<List<UserModel>>(response, HttpStatus.OK) ;
+    }
 }

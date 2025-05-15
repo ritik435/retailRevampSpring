@@ -20,6 +20,8 @@ public class UserModel {
     private String name;
 //    @NonNull
     private String password;
+    private String email;
+    private Boolean sentiment;
     @DBRef
     private List<BusinessModel> businessList=new ArrayList<>();
 }

@@ -4,25 +4,32 @@ import com.example.retailRevamp.Model.WeatherResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
-@Component
+@Service
 public class WeatherService {
 
-    private String API_KEY="4cdcc609133641f1a7024141250605";
+    @Value("${weather.api.key}")
+    private String API_KEY;
     private String URL="https://api.weatherapi.com/v1/current.json?key=API_KEY&q=PLACE";
-    private final String BASE_URL = "https://api.weatherapi.com/v1/current.json?key=API_KEY&q=PLACE";
 
+    @Value("${weather.api.url}")
+    private String BASE_URL;
 
-    private RestTemplate restTemplate= new RestTemplate();;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public String getTempInC(String place){
 //        String finalAPI = "https://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&q=" + place;
+        log.info("BASE_URL : "+BASE_URL);
+        log.info("API_KEY : "+API_KEY);
         String finalURL = BASE_URL
                 .replace("API_KEY", API_KEY)
                 .replace("PLACE", place);

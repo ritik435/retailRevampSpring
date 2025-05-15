@@ -1,6 +1,14 @@
 spring:
-  profiles:
-      active: dev
+  datasource:
+#    url: jdbc:postgresql://35.194.20.2/postgres
+#    username: postgres
+#    password: retailrevamp
+    url: jdbc:postgresql://localhost/postgres
+    username: postgres1
+    password: postgres_admin
+
+#  profiles:
+#      active: dev
   application:
     name: retailRevamp
   data:
@@ -8,5 +16,27 @@ spring:
       uri: mongodb+srv://RetailRevampSpring:lHGG9ocA4HijbCd5@retailrevamp.lnrwpip.mongodb.net/?retryWrites=true&w=majority&appName=retailRevamp
       database: RetailRevampSpringBoot
       mongodb-auto-index-creation: true
+
+#  fngo mavj zkis unwz
+# RetailRevamp
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: developer.ritik435@gmail.com
+    password: fngo mavj zkis unwz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+
 server:
   port: 8080
+
+weather:
+  api:
+    key: 4cdcc609133641f1a7024141250605
+    url: https://api.weatherapi.com/v1/current.json?key=API_KEY&q=PLACE

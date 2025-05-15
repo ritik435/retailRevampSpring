@@ -3,7 +3,7 @@ package com.example.retailRevamp.Controller;
 import com.example.retailRevamp.Model.BusinessModel;
 import com.example.retailRevamp.Model.UserModel;
 import com.example.retailRevamp.Service.BusinessService;
-import com.example.retailRevamp.Service.UserService;
+import com.example.retailRevamp.Service.IUserService;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class BusinessController {
     @Autowired
     public BusinessService businessService;
     @Autowired
-    public UserService userService;
+    public IUserService IUserService;
 
 
     @GetMapping("/home")
@@ -56,7 +56,7 @@ public class BusinessController {
         if (entry == null || entry.isEmpty()) {
             //create
             try {
-                UserModel userModel = userService.findUserById(id);
+                UserModel userModel = IUserService.findUserById(id);
                 log.info("postBusinessOfUser user: "+userModel.getName());
                 if (userModel != null && userModel.getName()!=null &&!userModel.getName().isEmpty()) {
                     log.info("postBusinessOfUser businessService: "+business.getName());
@@ -94,7 +94,7 @@ public class BusinessController {
     }
     @PutMapping("/id/{id}/{businessId}")
     public ResponseEntity<?> updateBusiness(@PathVariable Integer id, @RequestBody BusinessModel businessModel,@PathVariable Integer businessId){
-        UserModel user= userService.findUserById(id);
+        UserModel user= IUserService.findUserById(id);
         if(user!=null){
             BusinessModel business=businessService.findBusinessById(businessId);
             if(business!=null){
@@ -109,12 +109,12 @@ public class BusinessController {
         }else{
             return ResponseEntity.status(404).body("User Not found");
         }
-        return ResponseEntity.ok().body(userService.findEntry(id));
+        return ResponseEntity.ok().body(IUserService.findEntry(id));
     }
 
     @DeleteMapping("/{id}/{businessId}")
     public ResponseEntity<?> deleteBusinessByIdOfUser(@PathVariable Integer id, @PathVariable Integer businessId) {
-        UserModel user = userService.findUserById(id);
+        UserModel user = IUserService.findUserById(id);
         if (user != null ) {
             businessService.deleteEntry(businessId,user);
         } else {
