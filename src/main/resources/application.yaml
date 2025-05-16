@@ -17,6 +17,7 @@ spring:
       database: RetailRevampSpringBoot
       mongodb-auto-index-creation: true
 
+
 #  fngo mavj zkis unwz
 # RetailRevamp
   mail:
@@ -30,7 +31,12 @@ spring:
           auth: true
           starttls:
             enable: true
-
+#redis
+  redis:
+    host: redis-13455.c8.us-east-1-2.ec2.redns.redis-cloud.com
+    port: 13455
+    password: WT7A6SA8ktrFarlEktxhaeryFStNlAcw
+    ssl: false
 
 
 server:

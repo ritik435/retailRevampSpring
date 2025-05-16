@@ -3,6 +3,8 @@ package com.example.retailRevamp.Controller;
 import com.example.retailRevamp.Model.UserModel;
 import com.example.retailRevamp.Service.IUserService;
 import com.example.retailRevamp.Service.WeatherService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v2/retail-revamp")
 public class UserControllerv2 {
+    private static final Log log = LogFactory.getLog(UserControllerv2.class);
     @Autowired
     public IUserService userService;
     @Autowired
@@ -25,9 +28,9 @@ public class UserControllerv2 {
         return new ResponseEntity<String>("Access Denied", HttpStatus.FORBIDDEN) ;
     }
     @GetMapping("/hello")
-    public ResponseEntity<?> hello(){
-
-        String response="hi Ritik , "+weatherService.getTempInC("India");
+    public ResponseEntity<?> hello(@RequestParam String place){
+        log.info("place : "+place);
+        String response="hi Ritik , "+weatherService.getTempInC("Mumbai");
         System.out.println(response);
         return new ResponseEntity<String>(response, HttpStatus.OK) ;
     }
